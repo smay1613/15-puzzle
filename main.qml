@@ -42,34 +42,49 @@ Window {
             id: _headerRow
 
             height: root.height / 12
-            spacing: width * 0.2
+            width: root.width
 
-            Text {
-                id: movesCounterText
+            spacing: 5
 
+            Rectangle {
+                width: _headerRow.width / 2
                 height: _headerRow.height
-                width: text.length * 50
 
-                text: "Moves: " + _playBoard.movesCount
+                Text {
+                    id: timeCounterText
 
-                font.pointSize: _headerRow.height
-                minimumPointSize: 1
+                    height: parent.height
+                    width: parent.width
 
-                fontSizeMode: Text.Fit
-                Component.onCompleted: {console.log(text.length)}
+                    text: "Time: " + _playBoard.timeCountInSeconds + ":" + _playBoard.timeCountInMinutes
+
+                    elide: Text.ElideMiddle
+
+                    font.pointSize: _headerRow.height
+
+                    fontSizeMode: Text.Fit
+                }
             }
-
-            Text {
-                id: timeCounterText
-
+            Rectangle {
+                width: _headerRow.width / 2
                 height: _headerRow.height
 
-                text: "Time: " + _playBoard.timeCountInSeconds + ":" + _playBoard.timeCountInMinutes
+                Text {
+                    id: movesCounterText
 
-                font.pointSize: _headerRow.height
-                minimumPointSize: 1
+                    height: parent.height
+                    width: parent.width
 
-                fontSizeMode: Text.Fit
+                    anchors.centerIn: parent
+
+                    text: "Moves: " + _playBoard.movesCount
+
+                    elide: Text.ElideMiddle
+
+                    font.pointSize: _headerRow.height
+
+                    fontSizeMode: Text.Fit
+                }
             }
         }
 
