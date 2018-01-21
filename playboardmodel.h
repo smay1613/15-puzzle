@@ -19,7 +19,7 @@ public:
 
     Q_INVOKABLE bool isVictory();
     Q_INVOKABLE void shufflePlayBoard();
-    Q_INVOKABLE void playBoardMakeMove(int index);
+    Q_INVOKABLE bool playBoardMakeMove(int index);
 
     void appendTile(const Tile &tile);
     void clearModel();

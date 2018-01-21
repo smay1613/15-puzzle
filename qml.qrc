@@ -6,5 +6,6 @@
         <file>DialogWindow.qml</file>
         <file>ContextMenu.qml</file>
         <file>PlayBoardView.qml</file>
+        <file>ScoreBoard.qml</file>
     </qresource>
 </RCC>

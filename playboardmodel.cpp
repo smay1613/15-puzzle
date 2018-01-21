@@ -40,7 +40,7 @@ void PlayBoardModel::shufflePlayBoard()
     }
 }
 
-void PlayBoardModel::playBoardMakeMove(int index)
+bool PlayBoardModel::playBoardMakeMove(int index)
 {
     int right = (index + 1) % boardSize() != 0 ? (index + 1) : -1;
     int left =  (index - 1) % boardSize() != boardSize() - 1 ? (index - 1) : -1;
@@ -73,7 +73,9 @@ void PlayBoardModel::playBoardMakeMove(int index)
             beginMoveRows(QModelIndex(), shiftFrom, shiftFrom, QModelIndex(), shiftDestination);
             endMoveRows();
         }
+        return true;
     }
+    return false;
 }
 
 void PlayBoardModel::appendTile(const Tile &tile)

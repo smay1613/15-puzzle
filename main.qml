@@ -11,10 +11,6 @@ Window {
     PlayBoardView {
         id: _playBoard
 
-        property int timeCountInSeconds: 0
-        property int timeCountInMinutes: 0
-        property int movesCount: 0
-
         function openVictoryMessage() {
             _loader.source = "VictoryMessage.qml";
             _loader.item.width = Qt.binding(function() { return width; });
@@ -22,12 +18,15 @@ Window {
             _loader.item.messageText = "You won! Start a new game?";
             _loader.item.open();
             _loader.item.accepted.connect(model.shufflePlayBoard);
+            _loader.item.accepted.connect(clearScores);
+            timer.stop();
         }
 
         function openContextMenu() {
             _loader.source = "ContextMenu.qml";
             _loader.item.popup();
             _loader.item.itemClicked.connect(model.shufflePlayBoard);
+            _loader.item.itemClicked.connect(clearScores);
         }
 
         anchors.fill: parent
@@ -38,54 +37,13 @@ Window {
         interactive: false
         model: myModel
 
-        header: Row {
-            id: _headerRow
+        header: ScoreBoard {
+            id: _scoreBoard
 
             height: root.height / 12
             width: root.width
 
-            spacing: 5
-
-            Rectangle {
-                width: _headerRow.width / 2
-                height: _headerRow.height
-
-                Text {
-                    id: timeCounterText
-
-                    height: parent.height
-                    width: parent.width
-
-                    text: "Time: " + _playBoard.timeCountInSeconds + ":" + _playBoard.timeCountInMinutes
-
-                    elide: Text.ElideMiddle
-
-                    font.pointSize: _headerRow.height
-
-                    fontSizeMode: Text.Fit
-                }
-            }
-            Rectangle {
-                width: _headerRow.width / 2
-                height: _headerRow.height
-
-                Text {
-                    id: movesCounterText
-
-                    height: parent.height
-                    width: parent.width
-
-                    anchors.centerIn: parent
-
-                    text: "Moves: " + _playBoard.movesCount
-
-                    elide: Text.ElideMiddle
-
-                    font.pointSize: _headerRow.height
-
-                    fontSizeMode: Text.Fit
-                }
-            }
+            view: _playBoard
         }
 
         MouseArea {
