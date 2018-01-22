@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Tile.qml</file>
+        <file>VictoryMessage.qml</file>
+        <file>DialogWindow.qml</file>
+        <file>ContextMenu.qml</file>
+        <file>PlayBoardView.qml</file>
+        <file>ScoreBoard.qml</file>
+    </qresource>
+</RCC>
