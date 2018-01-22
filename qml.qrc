@@ -7,5 +7,6 @@
         <file>ContextMenu.qml</file>
         <file>PlayBoardView.qml</file>
         <file>ScoreBoard.qml</file>
+        <file>separator.png</file>
     </qresource>
 </RCC>

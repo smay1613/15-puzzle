@@ -18,6 +18,9 @@ Item {
                 height: parent.height
                 width: parent.width
 
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+
                 text: "Time: " + view.timeCountInMinutes + "m:" + view.timeCountInSeconds + "s"
 
                 elide: Text.ElideMiddle
@@ -28,19 +31,21 @@ Item {
 
                 wrapMode: Text.WordWrap
 
-                verticalAlignment: Text.AlignVCenter
             }
         }
 
         Column {
             width: _headerRow.width / 2
             height: _headerRow.height
-            anchors.right: parent.right
+
             Text {
                 id: movesCounterText
 
                 height: parent.height
                 width: parent.width
+
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
 
                 text: "Moves: " + view.movesCount
 
@@ -51,9 +56,17 @@ Item {
                 fontSizeMode: Text.Fit
 
                 wrapMode: Text.WordWrap
-
-                verticalAlignment: Text.AlignVCenter
             }
+        }
+    }
+
+    Image {
+        source: "separator.png"
+        anchors {
+            left: parent.left
+            right: parent.right
+            verticalCenter: parent.bottom
+            verticalCenterOffset: -parent.height / 10
         }
     }
 }
