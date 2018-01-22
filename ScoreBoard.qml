@@ -3,12 +3,11 @@ import QtQuick 2.5
 Item {
     property var view
 
-    Item {
+    Row {
         id: _headerRow
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
 
         anchors.fill: parent
+
         Column {
             width: _headerRow.width / 2
             height: _headerRow.height
