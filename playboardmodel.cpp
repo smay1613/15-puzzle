@@ -146,8 +146,9 @@ int PlayBoardModel::rowCount(const QModelIndex & parent) const
 
 QVariant PlayBoardModel::data(const QModelIndex & index, int role) const
 {
-    if (index.row() < 0 || index.row() >= m_tiles.count())
+    if (index.row() < 0 || index.row() >= m_tiles.count()) {
         return QVariant();
+    }
 
     const Tile &tile = m_tiles[index.row()];
 
