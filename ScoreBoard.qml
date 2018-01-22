@@ -3,13 +3,12 @@ import QtQuick 2.5
 Item {
     property var view
 
-    Row {
+    Item {
         id: _headerRow
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
 
         anchors.fill: parent
-
-        spacing: 5
-
         Column {
             width: _headerRow.width / 2
             height: _headerRow.height
@@ -27,13 +26,17 @@ Item {
                 font.pointSize: _headerRow.height
 
                 fontSizeMode: Text.Fit
+
+                wrapMode: Text.WordWrap
+
+                verticalAlignment: Text.AlignVCenter
             }
         }
 
         Column {
             width: _headerRow.width / 2
             height: _headerRow.height
-
+            anchors.right: parent.right
             Text {
                 id: movesCounterText
 
@@ -47,6 +50,10 @@ Item {
                 font.pointSize: _headerRow.height
 
                 fontSizeMode: Text.Fit
+
+                wrapMode: Text.WordWrap
+
+                verticalAlignment: Text.AlignVCenter
             }
         }
     }
