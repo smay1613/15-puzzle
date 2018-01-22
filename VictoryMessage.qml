@@ -30,17 +30,7 @@ Popup {
 
         anchors.centerIn: _backgroundRectangle
 
-        Text {
-            anchors {
-                top: _dialogWindow.top
-                horizontalCenter: _dialogWindow.horizontalCenter
-                topMargin: _dialogWindow.height / 16
-                bottomMargin:_dialogWindow.height / 16
-            }
-
-            text: _victoryPopup.messageText
-            font.pointSize: Math.min(_dialogWindow.height, _dialogWindow.width) / 12
-        }
+        message: messageText
 
         Button {
             width: _dialogWindow.width / 4
@@ -54,6 +44,7 @@ Popup {
             }
 
             text: "Yes"
+            font.pointSize: Math.min(_dialogWindow.height, _dialogWindow.width) / 12
 
             onClicked: {
                 _victoryPopup.close();
@@ -73,6 +64,7 @@ Popup {
             }
 
             text: "No "
+            font.pointSize: Math.min(_dialogWindow.height, _dialogWindow.width) / 12
 
             onClicked: {
                 _victoryPopup.close();

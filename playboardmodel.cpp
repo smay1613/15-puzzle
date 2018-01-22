@@ -16,9 +16,9 @@ PlayBoardModel::PlayBoardModel(int boardSize)
 
 bool PlayBoardModel::isVictory()
 {
-    for(int i = 0; i < size(); i++)
+    for (int i = 0; i < size(); i++)
     {
-        if(i != m_tiles.at(i).value()) {
+        if (i != m_tiles.at(i).value()) {
             return false;
         }
     }
@@ -28,16 +28,20 @@ bool PlayBoardModel::isVictory()
 void PlayBoardModel::shufflePlayBoard()
 {
     clearModel();
-    QVector<int> randomValues = generateRandomVector(size());
-    for(int i(0); i < size(); ++i) {
-        appendTile(Tile(randomValues[i]));
-    }
 
-    if(!isSolvable()) {
-        beginMoveRows(QModelIndex(), size() - 1, size() - 1, QModelIndex(), size() - 2);
-        m_tiles.swap(size() - 1, size() - 2);
-        endMoveRows();
+    beginResetModel();
+    QVector<int> randomValues = generateRandomVector(size());
+
+    beginInsertRows(QModelIndex(), 0, size());
+    for (int i(0); i < size(); ++i) {
+        m_tiles.append(Tile(randomValues[i]));
     }
+    endInsertRows();
+
+    if (!isSolvable()) {
+        m_tiles.swap(size() - 1, size() - 2);
+    }
+    endResetModel();
 }
 
 bool PlayBoardModel::playBoardMakeMove(int index)
@@ -49,7 +53,7 @@ bool PlayBoardModel::playBoardMakeMove(int index)
 
     int freeTilePosition = 0;
 
-    for(int i = 0; i < size(); i++) {
+    for (int i = 0; i < size(); i++) {
         if (m_tiles.at(i).value() == size() - 1) {
             freeTilePosition = i;
             break;
@@ -61,12 +65,12 @@ bool PlayBoardModel::playBoardMakeMove(int index)
 
     int destination = index > freeTilePosition ? freeTilePosition : freeTilePosition + 1;
 
-    if(adjacent) {
+    if (adjacent) {
         beginMoveRows(QModelIndex(), index, index, QModelIndex(), destination);
         m_tiles.swap(index, freeTilePosition);
         endMoveRows();
 
-        if(shift) {
+        if (shift) {
             int shiftDestination = index > freeTilePosition ? index + 1 : index;
             int shiftFrom = freeTilePosition == down ? down - 1 : up + 1;
 
@@ -76,13 +80,6 @@ bool PlayBoardModel::playBoardMakeMove(int index)
         return true;
     }
     return false;
-}
-
-void PlayBoardModel::appendTile(const Tile &tile)
-{
-    beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    m_tiles.append(tile);
-    endInsertRows();
 }
 
 void PlayBoardModel::clearModel()
@@ -101,7 +98,7 @@ QVector<int> PlayBoardModel::generateRandomVector(int size) const
 {
     QVector<int> randomVector;
 
-    for(int i(0); i < size; ++i) {
+    for (int i(0); i < size; ++i) {
         randomVector.push_back(i);
     }
     qsrand(QTime::currentTime().msec());
@@ -113,10 +110,10 @@ bool PlayBoardModel::isSolvable()
 {
     int pairs = 0;
 
-    for(int i(0); i < size(); ++i) {
+    for (int i(0); i < size(); ++i) {
         if (m_tiles.at(i).value() != size() - 1) {
             for (int j(0); j < i; ++j) {
-                if(m_tiles.at(j).value() > m_tiles.at(i).value()
+                if (m_tiles.at(j).value() > m_tiles.at(i).value()
                         && m_tiles.at(j).value() != size() - 1) {
                     ++pairs;
                 }

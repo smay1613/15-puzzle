@@ -21,7 +21,6 @@ public:
     Q_INVOKABLE void shufflePlayBoard();
     Q_INVOKABLE bool playBoardMakeMove(int index);
 
-    void appendTile(const Tile &tile);
     void clearModel();
 
     QVector<int> generateRandomVector(int size) const;

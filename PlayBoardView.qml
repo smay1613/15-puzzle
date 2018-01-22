@@ -31,11 +31,11 @@ GridView {
             visible: value != _playBoardGrid.model.boardSize * _playBoardGrid.model.boardSize - 1
 
             onCellClicked: {
-                if( _playBoardGrid.model.playBoardMakeMove(index)) {
+                if (_playBoardGrid.model.playBoardMakeMove(index)) {
                     ++movesCount;
                     _timerCounter.start();
                 }
-                if(_playBoardGrid.model.isVictory()) {
+                if (!_playBoardGrid.model.isVictory()) {
                     victory();
                 }
             }
