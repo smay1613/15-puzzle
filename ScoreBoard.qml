@@ -23,8 +23,6 @@ Item {
 
                 text: "Time: " + view.timeCountInMinutes + "m:" + view.timeCountInSeconds + "s"
 
-                elide: Text.ElideMiddle
-
                 font.pointSize: _headerRow.height
 
                 fontSizeMode: Text.Fit
@@ -49,8 +47,6 @@ Item {
 
                 text: "Moves: " + view.movesCount
 
-                elide: Text.ElideMiddle
-
                 font.pointSize: _headerRow.height
 
                 fontSizeMode: Text.Fit
@@ -66,7 +62,7 @@ Item {
             left: parent.left
             right: parent.right
             verticalCenter: parent.bottom
-            verticalCenterOffset: -parent.height / 10
+            verticalCenterOffset: -parent.height / 50
         }
     }
 }
