@@ -3,18 +3,8 @@ import QtQuick 2.5
 GridView {
     id: _playBoardGrid
 
-    property alias timer: _timerCounter
-    property int timeCountInSeconds: 0
-    property int timeCountInMinutes: 0
-    property int movesCount: 0
-
     signal victory()
-
-    function clearScores() {
-        timeCountInSeconds = 0;
-        timeCountInMinutes = 0;
-        movesCount = 0;
-    }
+    signal moveDone()
 
     delegate: Item {
         id: _cell
@@ -32,28 +22,11 @@ GridView {
 
             onCellClicked: {
                 if (_playBoardGrid.model.playBoardMakeMove(index)) {
-                    ++movesCount;
-                    _timerCounter.start();
+                    moveDone();
                 }
-                if (!_playBoardGrid.model.isVictory()) {
+                if (_playBoardGrid.model.isVictory()) {
                     victory();
                 }
-            }
-        }
-    }
-
-    Timer {
-        id: _timerCounter
-        interval: 1000
-        running: _playBoardGrid.movesCount > 0
-        repeat: true
-
-        onTriggered: {
-            if (_playBoardGrid.timeCountInSeconds >= 60) {
-                ++_playBoardGrid.timeCountInMinutes;
-                _playBoardGrid.timeCountInSeconds = 0;
-            } else {
-                ++_playBoardGrid.timeCountInSeconds;
             }
         }
     }

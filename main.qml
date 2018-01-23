@@ -18,15 +18,12 @@ Window {
             _loader.item.messageText = "You won! Start a new game?";
             _loader.item.open();
             _loader.item.accepted.connect(model.shufflePlayBoard);
-            _loader.item.accepted.connect(clearScores);
-            timer.stop();
         }
 
         function openContextMenu() {
             _loader.source = "ContextMenu.qml";
             _loader.item.popup();
             _loader.item.itemClicked.connect(model.shufflePlayBoard);
-            _loader.item.itemClicked.connect(clearScores);
         }
 
         anchors.fill: parent
@@ -38,10 +35,35 @@ Window {
         model: myModel
 
         header: ScoreBoard {
+            id: _scoreHeader
+
             height: root.height / 12
             width: root.width
 
-            view: _playBoard
+            Connections {
+                target: _playBoard
+
+                onMoveDone: {
+                    timer.start();
+                    movesCount++;
+                }
+
+                onVictory: {
+                    timer.stop();
+                }
+            }
+
+            Connections {
+                target: _loader.item
+
+                onItemClicked: {
+                    clearScores();
+                }
+
+                onAccepted: {
+                    clearScores();
+                }
+            }
         }
 
         MouseArea {

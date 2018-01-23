@@ -1,7 +1,14 @@
 import QtQuick 2.5
 
 Item {
-    property var view
+    property var timer: _timerCounter
+    property int movesCount: 0
+
+    function clearScores() {
+        _timerCounter.timeCountInSeconds = 0;
+        _timerCounter.timeCountInMinutes = 0;
+        movesCount = 0;
+    }
 
     Row {
         id: _headerRow
@@ -21,7 +28,7 @@ Item {
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
 
-                text: "Time: " + view.timeCountInMinutes + "m:" + view.timeCountInSeconds + "s"
+                text: "Time: " + _timerCounter.timeCountInMinutes + "m:" + _timerCounter.timeCountInSeconds + "s"
 
                 font.pointSize: _headerRow.height
 
@@ -45,7 +52,7 @@ Item {
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
 
-                text: "Moves: " + view.movesCount
+                text: "Moves: " + movesCount
 
                 font.pointSize: _headerRow.height
 
@@ -63,6 +70,26 @@ Item {
             right: parent.right
             verticalCenter: parent.bottom
             verticalCenterOffset: -parent.height / 50
+        }
+    }
+
+    Timer {
+        id: _timerCounter
+
+        property int timeCountInSeconds: 0
+        property int timeCountInMinutes: 0
+
+        interval: 1000
+        running: movesCount > 0
+        repeat: true
+
+        onTriggered: {
+            if (timeCountInSeconds >= 60) {
+                ++timeCountInMinutes;
+                timeCountInSeconds = 0;
+            } else {
+                ++timeCountInSeconds;
+            }
         }
     }
 }
